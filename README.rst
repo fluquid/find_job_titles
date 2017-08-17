@@ -8,12 +8,12 @@ find_job_titles
 .. image:: https://img.shields.io/pypi/pyversions/find_job_titles.svg
         :target: https://pypi.python.org/pypi/find_job_titles
 
-.. image:: https://img.shields.io/travis/codinguncut/find_job_titles.svg
-        :target: https://travis-ci.org/codinguncut/find_job_titles
+.. image:: https://img.shields.io/travis/fluquid/find_job_titles.svg
+        :target: https://travis-ci.org/fluquid/find_job_titles
 
-.. image:: https://codecov.io/github/codinguncut/find_job_titles/coverage.svg?branch=master
+.. image:: https://codecov.io/github/fluquid/find_job_titles/coverage.svg?branch=master
     :alt: Coverage Status
-    :target: https://codecov.io/github/codinguncut/find_job_titles
+    :target: https://codecov.io/github/fluquid/find_job_titles
 
 Find Job Titles in Strings
 
