@@ -1,0 +1,15 @@
+graft docs
+graft src
+graft tests
+
+include *.in
+include *.ini
+include *.rst
+include *.txt
+
+include LICENSE
+include VERSION
+include Makefile
+
+global-exclude __pycache__ *.py[cod]
+global-exclude *.so *.dylib

@@ -1,0 +1,14 @@
+[paths]
+source =
+    src
+
+[run]
+branch = true
+source =
+    find_job_titles
+parallel = true
+
+[report]
+show_missing = true
+precision = 2
+omit = 

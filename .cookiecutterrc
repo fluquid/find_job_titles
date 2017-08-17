@@ -1,0 +1,33 @@
+# This file exists so you can easily regenerate your project.
+#
+# `cookiepatcher` is a convenient shim around `cookiecutter`
+# for regenerating projects (it will generate a .cookiecutterrc 
+# automatically for any template). To use it:
+#
+#    pip install cookiepatcher
+#    cookiepatcher gh:ionelmc/cookiecutter-pylibrary project-path
+#
+# See:
+#    https://pypi.python.org/pypi/cookiecutter
+#
+# Alternatively, you can run:
+#
+#    cookiecutter --overwrite-if-exists --config-file=project-path/.cookiecutterrc gh:ionelmc/cookiecutter-pylibrary
+
+default_context:
+    email: johannes@fluquid.com
+    full_name: Johannes Ahlmann
+    github_username: codinguncut
+    project_name: find_job_titles
+    project_package: find_job_titles
+    project_short_description: Python Boilerplate Package.
+    project_slug: find_job_titles
+    pypi_username: fluquid
+    use_codecov: y
+    use_cython: n
+    use_landscape: n
+    use_pypi_deployment_with_travis: y
+    use_pytest: y
+    use_requiresio: y
+    version: 0.1.0
+    year: 2017

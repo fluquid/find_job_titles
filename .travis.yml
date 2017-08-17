@@ -1,0 +1,72 @@
+# Config file for automatic testing at travis-ci.org
+# This file will be regenerated if you run travis_pypi_setup.py
+
+language: python
+python: 3.5
+sudo: false
+
+env:
+  - TOXENV=py35
+  - TOXENV=py34
+  - TOXENV=py27
+  - TOXENV=pypy
+
+matrix:
+  allow_failures:
+    - env: TOXENV=pypy
+
+before_install:
+  - python --version
+  - uname -a
+  - lsb_release -a
+
+# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+install: 
+  - pip install -U tox
+  - pip install -U coverage
+  - pip install -U twine
+  - virtualenv --version
+  - easy_install --version
+  - pip --version
+  - tox --version
+
+# command to run tests, e.g. python setup.py test
+script:
+  - tox
+
+after_success:
+    - |
+      # Codecov requires a single .coverage and will run 'coverage xml' to
+      # generate the report.
+      coverage combine
+      bash <(curl -s https://codecov.io/bash)
+
+after_failure:
+  - more .tox/log/* | cat
+  - more .tox/*/log/* | cat
+
+before_cache:
+  - rm -fr $HOME/.cache/pip/log
+
+cache:
+  directories:
+    - $HOME/.cache/pip
+
+notifications:
+  email:
+    on_sucess: never
+    on_failure: always
+
+# FIXME: After you create the Github repo and add it to Travis, run the
+# travis_pypi_setup.py script to finish PyPI deployment setup. Then you can
+# remove the script travis_pypi_setup.py.
+deploy:
+  provider: pypi
+  distributions: "sdist bdist_wheel"
+  user: fluquid
+  password:
+    secure: PLEASE_REPLACE_ME
+  on:
+    tags: true
+    repo: codinguncut/find_job_titles
+    condition: $TOXENV == py27
