@@ -23,21 +23,36 @@ find_job_titles
     :alt: Requirements Status
     :target: https://requires.io/github/codinguncut/find_job_titles/requirements/?branch=master
 
-Python Boilerplate Package.
+Find Job Titles in Strings
 
 * Free software: MIT license
-* Documentation: https://find_job_titles.readthedocs.org.
 * Python versions: 2.7, 3.4+
 
 Features
 --------
 
-FIXME
+* Find any of 77k job titles in a given string
+* Text processing is extremely fast using "acora" library
+* Dictionary generation takes about 20 seconds upfront
 
 Quickstart
 ----------
 
-FIXME
+Instantiate "Finder" and start extracting job titles::
+
+    >>> from find_job_titles import Finder
+    >>> finder.findall('I am the Senior Vice President')
+    [('Senior Vice President', 9),
+     ('Vice President', 16),
+     ('President', 21)]
+
+All possible, overlapping matches are returned.
+Matches contain positional information of where the match was found.
+
+Alternatively use "finditer" for lazy consumption of matches::
+
+    >>> finder.finditer('I am the Senior Vice President')]
+    <generator object ...>
 
 Credits
 -------
