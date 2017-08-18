@@ -4,6 +4,11 @@ History
 
 .. comment:: bumpversion marker
 
+0.3.0-dev (2017-08-18)
+----------------------
+
+* updated title list (- surnames, - blacklist, + added_roles)
+
 0.2.0-dev (2017-08-18)
 ----------------------
 
