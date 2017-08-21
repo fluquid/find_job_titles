@@ -4,6 +4,12 @@ History
 
 .. comment:: bumpversion marker
 
+0.4.0 (2017-08-21)
+------------------
+
+* updated title list with marketing execs
+* set non-dev version
+
 0.3.0-dev (2017-08-18)
 ----------------------
 

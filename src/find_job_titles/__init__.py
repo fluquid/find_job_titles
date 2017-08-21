@@ -13,7 +13,7 @@ TODO:
 
 __author__ = 'Johannes Ahlmann'
 __email__ = 'johannes@fluquid.com'
-__version__ = '0.3.0-dev'
+__version__ = '0.4.0'
 
 import gzip
 from pkg_resources import resource_stream
