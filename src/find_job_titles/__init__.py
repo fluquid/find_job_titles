@@ -51,8 +51,8 @@ def longest_match(matches):
 
     for elt in matches:
         # if (a contains b) or (b contains a)
-        if (    (elt.start >= longest.start and elt.end <= longest.end) or
-                (longest.start >= elt.start and longest.end <= elt.end)):
+        if (elt.start >= longest.start and elt.end <= longest.end) or \
+           (longest.start >= elt.start and longest.end <= elt.end):
             longest = max(longest, elt, key=lambda x: x.end - x.start)
         else:
             yield longest
