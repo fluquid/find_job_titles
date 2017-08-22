@@ -4,6 +4,13 @@ History
 
 .. comment:: bumpversion marker
 
+0.6.0 (2017-08-22)
+------------------
+
+* rewrote and fixed longest match code
+* added pyahocorasick implementation and made default
+* added params to enable/disable longest matches
+
 0.5.0 (2017-08-22)
 ------------------
 
