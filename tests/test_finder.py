@@ -7,7 +7,7 @@ finder = Finder()
 
 def test_some_matches():
     fds = [x[0] for x in finder.finditer('I am the Senior Vice President')]
-    assert fds == ['Senior Vice President', 'Vice President', 'President']
+    assert fds == ['Senior Vice President']
 
 
 def test_no_matches():

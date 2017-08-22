@@ -18,6 +18,7 @@ __version__ = '0.4.0'
 import gzip
 from pkg_resources import resource_stream
 import logging
+from itertools import groupby
 
 from acora import AcoraBuilder
 
@@ -27,25 +28,38 @@ def load_titles():
                          'data/titles_combined.txt.gz') as fhandle:
         with gzip.GzipFile(fileobj=fhandle, mode='r') as gzf:
             for line in gzf:
+                # Note: decode rather than "rt" for py2 compat
                 yield line.decode('utf-8').strip()
 
 
-class Finder(object):
+class FinderAcora(object):
     """
-    Finder class.
+    Finder class based on "acora" library.
+
+    building data structure takes a moment, and having issues
+        with finding longest matches.
     """
-    def __init__(self, use_unicode=True):
+    def __init__(self, use_unicode=True, ignore_case=False):
         titles = (load_titles()
                   if use_unicode
                   else (s.encode('ascii') for s in load_titles()))
         builder = AcoraBuilder()
-        logging.warn('building job title searcher')
+        logging.info('building job title searcher')
         builder.update(titles)
-        logging.warn('building done')
-        self.ac = builder.build()
+        self.ac = builder.build(ignore_case=ignore_case)
+        logging.info('building done')
+
+    def search_longest(self, matches):
+        # source: https://github.com/scoder/acora#faqs-and-recipes
+        for pos, match_set in groupby(matches, lambda x: len(x[0]) + x[1]):
+            yield max(match_set, key=lambda x: len(x))
 
     def findall(self, string):
-        return self.ac.findall(string)
+        return list(self.search_longest(self.ac.findall(string)))
 
     def finditer(self, string):
-        return self.ac.finditer(string)
+        return self.search_longest(self.ac.finditer(string))
+
+
+class Finder(FinderAcora):
+    pass
