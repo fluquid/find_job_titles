@@ -38,6 +38,7 @@ def load_titles():
         with gzip.GzipFile(fileobj=fhandle, mode='r') as gzf:
             for line in gzf:
                 # Note: decode rather than "rt" for py2 compat
+                # TODO: using pyahocorasick this should now be 'str' again ;(
                 yield line.decode('utf-8').strip()
 
 
