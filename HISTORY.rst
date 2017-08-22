@@ -4,6 +4,12 @@ History
 
 .. comment:: bumpversion marker
 
+0.7.0 (2017-08-22)
+------------------
+
+* fixed tox tests for py27 re: different unicode treatment by acora and pyahocorasick
+* only testing default `Finder` using pyahocorasick now.
+
 0.6.0 (2017-08-22)
 ------------------
 
