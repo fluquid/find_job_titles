@@ -29,5 +29,5 @@ default_context:
     use_pypi_deployment_with_travis: y
     use_pytest: y
     use_requiresio: y
-    version: 0.4.0
+    version: 0.5.0
     year: 2017
