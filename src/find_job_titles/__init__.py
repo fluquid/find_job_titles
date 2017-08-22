@@ -52,7 +52,7 @@ class FinderAcora(object):
     def search_longest(self, matches):
         # source: https://github.com/scoder/acora#faqs-and-recipes
         for pos, match_set in groupby(matches, lambda x: len(x[0]) + x[1]):
-            yield max(match_set, key=lambda x: len(x))
+            yield max(match_set, key=lambda x: len(x[0]))
 
     def findall(self, string):
         return list(self.search_longest(self.ac.findall(string)))
