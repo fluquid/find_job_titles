@@ -32,8 +32,9 @@ Quickstart
 
 Instantiate "Finder" and start extracting job titles::
 
-    >>> from find_job_titles import Finder
-    >>> finder.findall('I am the Senior Vice President')
+    >>> from find_job_titles import FinderAcora
+    >>> finder=FinderAcora()
+    >>> finder.findall(u'I am the Senior Vice President')
     [('Senior Vice President', 9),
      ('Vice President', 16),
      ('President', 21)]
