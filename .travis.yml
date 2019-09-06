@@ -6,8 +6,9 @@ python: 3.5
 sudo: false
 
 env:
+  - TOXENV=py37
+  - TOXENV=py36
   - TOXENV=py35
-  - TOXENV=py34
   - TOXENV=py27
   - TOXENV=pypy
 
