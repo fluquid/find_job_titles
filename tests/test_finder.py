@@ -6,9 +6,14 @@ from find_job_titles import FinderAcora, FinderPyaho
 # using test titles to reduce test time for acora
 TEST_TITLES = ['Senior Vice President', 'Vice President', 'President',
                'President & CEO']
+EXTRA_TITLES = ['Chief Financial Officer', 'Executive']
+
 # disabled testing both as they deal with unicode differently in py27
 #FINDERS = [FinderAcora(TEST_TITLES), FinderPyaho()]
-FINDERS = [FinderPyaho(TEST_TITLES)]
+FINDERS = [FinderPyaho(titles=TEST_TITLES)]
+FINDERS_CASE_SENSITIVE = [FinderPyaho(titles=TEST_TITLES, ignore_case=False)]
+FINDERS_EXTRA_TITLES = [FinderPyaho(titles=TEST_TITLES, extra_titles=EXTRA_TITLES)]
+FINDERS_CASE_SENSITIVE_EXTRA_TITLES = [FinderPyaho(titles=TEST_TITLES, ignore_case=False, extra_titles=EXTRA_TITLES)]
 
 
 @pytest.fixture(params=FINDERS)
@@ -16,7 +21,25 @@ def finder(request):
     return request.param
 
 
-def test_some_matches(finder):
+@pytest.fixture(params=FINDERS_CASE_SENSITIVE)
+def finder_case_sensitive(request):
+    return request.param
+
+
+@pytest.fixture(params=FINDERS_EXTRA_TITLES)
+def finder_extra_titles(request):
+    return request.param
+
+
+@pytest.fixture(params=FINDERS_CASE_SENSITIVE_EXTRA_TITLES)
+def finder_case_sensitive_extra_titles(request):
+    return request.param
+
+
+def test_some_matches(finder,
+                      finder_case_sensitive,
+                      finder_extra_titles,
+                      finder_case_sensitive_extra_titles):
     fds = [x.match for x in finder.finditer('I am the Senior Vice President')]
     assert fds == ['Senior Vice President']
 
@@ -25,6 +48,27 @@ def test_some_matches(finder):
 
     fds = [x.match for x in finder.finditer('Senior Vice President I am')]
     assert fds == ['Senior Vice President']
+
+    fds = [x.match for x in finder.finditer('I am the senior vice president')]
+    assert fds == ['senior vice president']
+
+    fds = [x.match for x in finder_case_sensitive.finditer('I am the Senior Vice President')]
+    assert fds == ['Senior Vice President']
+
+    fds = [x.match for x in finder_case_sensitive.finditer('I am the senior vice president')]
+    assert fds == []
+
+    fds = [x.match for x in finder_extra_titles.finditer('I am the Chief Financial Officer')]
+    assert fds == ['Chief Financial Officer']
+
+    fds = [x.match for x in finder_extra_titles.finditer('I am the chief financial officer')]
+    assert fds == ['chief financial officer']
+
+    fds = [x.match for x in finder_case_sensitive_extra_titles.finditer('I am the Chief Financial Officer')]
+    assert fds == ['Chief Financial Officer']
+
+    fds = [x.match for x in finder_case_sensitive_extra_titles.finditer('I am the chief financial officer')]
+    assert fds == []
 
 
 def test_no_matches(finder):

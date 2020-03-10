@@ -6,7 +6,8 @@ History
 0.7.1 (2020-03-10)
 ------------------
 
-* FinderPyaho support detecting job titles in lower cases 
+* FinderPyaho support detecting job titles in lower cases (add ignore_case to FinderPyaho constructor)
+* Add extra_titles to Finder constructors to support extending dictionary
 
 
 0.7.0 (2017-08-22)
