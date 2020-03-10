@@ -3,6 +3,11 @@ History
 =======
 
 .. comment:: bumpversion marker
+0.7.1 (2020-03-10)
+------------------
+
+* FinderPyaho support detecting job titles in lower cases 
+
 
 0.7.0 (2017-08-22)
 ------------------
