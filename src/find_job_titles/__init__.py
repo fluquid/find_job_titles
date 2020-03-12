@@ -15,7 +15,7 @@ TODO:
 
 __author__ = 'Johannes Ahlmann'
 __email__ = 'johannes@fluquid.com'
-__version__ = '0.7.0'
+__version__ = '0.7.1'
 
 import gzip
 from pkg_resources import resource_stream
@@ -76,6 +76,7 @@ class BaseFinder(object):
     """
     Base class containing query methods
     """
+
     def findall(self, string, use_longest=True):
         """
         utility function returning `list` of results from `finditer`
@@ -107,11 +108,13 @@ class FinderAcora(BaseFinder):
     Note: Building data structure seems to be significantly slower than with
           pyahocorasick
     """
-    def __init__(self, use_unicode=True, ignore_case=False, titles=None):
+
+    def __init__(self, use_unicode=True, ignore_case=False, titles=None, extra_titles=None):
         """
         :param use_unicode: whether to use `titles` as unicode or bytestrings
         :param ignore_case: if True ignore case in all matches
         :param titles: if given, overrides default `load_titles()` values
+        :param extra_titles: if given, add to titles
         """
         titles = titles if titles else load_titles()
         titles = (titles
@@ -120,6 +123,9 @@ class FinderAcora(BaseFinder):
         builder = AcoraBuilder()
         logging.info('building job title searcher')
         builder.update(titles)
+        if extra_titles:
+            builder.add(extra_titles)
+
         self.ac = builder.build(ignore_case=ignore_case)
         logging.info('building done')
 
@@ -137,15 +143,27 @@ class FinderPyaho(BaseFinder):
     TODO:
     - use pickle and unpickle support for `self.autom`
     """
-    def __init__(self, titles=None):
+
+    def __init__(self, ignore_case=True, titles=None, extra_titles=None):
         """
+        :param ignore_case if True, lower case job titles are also added
         :param titles: if given, overrides default `load_titles()` values
+        :param extra_titles: if given, add to titles
         """
         titles = titles if titles else load_titles()
         logging.info('building job title searcher')
         autom = ahocorasick.Automaton()
         for title in titles:
             autom.add_word(title, title)
+            if ignore_case:
+                autom.add_word(title.lower(), title.lower())
+
+        if extra_titles:
+            for title in extra_titles:
+                autom.add_word(title, title)
+                if ignore_case:
+                    autom.add_word(title.lower(), title.lower())
+
         autom.make_automaton()
         self.autom = autom
         logging.info('building done')
